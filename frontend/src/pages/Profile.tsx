@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { Activity, Apple, Dumbbell, HeartPulse, UserCircle2 } from 'lucide-react'
+import { Activity, Apple, Dumbbell, HeartPulse, Scissors, UserCircle2 } from 'lucide-react'
 import { useFitness } from '../context/FitnessContext'
 
 const personalInfo = {
@@ -15,6 +15,23 @@ const wellnessLevels = [
   { label: 'Readiness score', value: '82', detail: '+4 vs last week', icon: Activity, accent: 'text-emerald-400' },
   { label: 'Recovery load', value: 'Moderate', detail: 'Sleep debt +12 min', icon: HeartPulse, accent: 'text-cyan-400' },
   { label: 'Stress balance', value: 'Low', detail: 'HRV 74ms · Stable', icon: UserCircle2, accent: 'text-blue-400' },
+]
+
+const recentHaircuts = [
+  {
+    style: 'Low fade · textured top',
+    barber: 'Aiden Park · Atelier Noir',
+    location: 'Downtown · Suite 4B',
+    date: 'Nov 18, 2025',
+    notes: ['Skin fade detailing', 'Ice roller finish', 'Matte clay hold'],
+  },
+  {
+    style: 'Tapered crop · razor part',
+    barber: 'Luis Mateo · Urban Craft Barbers',
+    location: '14th Street · Loft Studio',
+    date: 'Oct 02, 2025',
+    notes: ['Charcoal detox wash', 'Steam towel prep', 'Feather razor lines'],
+  },
 ]
 
 const mealPlan = [
@@ -118,6 +135,39 @@ export function Profile() {
               </ul>
               <p className="mt-4 text-xs uppercase tracking-[0.3em] text-slate-500">Macros</p>
               <p className="text-sm text-slate-200">{block.macros}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-white/5 bg-slate-900/70 p-6">
+        <header className="flex items-center gap-3">
+          <Scissors className="h-6 w-6 text-pink-400" />
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-slate-400">Grooming</p>
+            <h2 className="text-2xl font-semibold">Recent haircut & barber</h2>
+          </div>
+        </header>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {recentHaircuts.map((entry) => (
+            <article key={`${entry.barber}-${entry.date}`} className="rounded-2xl border border-white/5 bg-slate-900/60 p-5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">{entry.style}</h3>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{entry.date}</p>
+              </div>
+              <p className="mt-2 text-sm text-slate-300">{entry.barber}</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Location</p>
+              <p className="text-sm text-slate-200">{entry.location}</p>
+              <p className="mt-4 text-xs uppercase tracking-[0.3em] text-slate-500">Session details</p>
+              <ul className="mt-2 space-y-1 text-sm text-slate-300">
+                {entry.notes.map((note) => (
+                  <li key={note} className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                    {note}
+                  </li>
+                ))}
+              </ul>
             </article>
           ))}
         </div>
